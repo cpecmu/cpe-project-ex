@@ -41,8 +41,8 @@
   Scale=MatchLowercase,
 ]{Arundina Sans Mono}
 \ifenglish
-  \setmainfont{TeX Gyre Termes}
-  \setsansfont{TeX Gyre Heros}
+  \setmainfont[Scale=MatchLowercase]{TeX Gyre Termes}
+  \setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}
   \setmonofont[
     Mapping=,
     Scale=MatchLowercase,
@@ -52,8 +52,8 @@
     AutoFakeSlant
   ]{Inconsolata}
 \else
-  \newfontfamily\englishfont{TeX Gyre Termes}
-  \newfontfamily\englishfontsf{TeX Gyre Heros}
+  \newfontfamily\englishfont[Scale=MatchLowercase]{TeX Gyre Termes}
+  \newfontfamily\englishfontsf[Scale=MatchLowercase]{TeX Gyre Heros}
   \newfontfamily\englishfonttt[
     Mapping=,
     Scale=MatchLowercase,
@@ -88,11 +88,10 @@
 \newenvironment{englang}{%
 \ifthenelse{\equal{\f@family}{ArundinaSansMono(0)}}{\englishfonttt}{%
 \ifthenelse{\equal{\th@fam}{1}}{\englishfontsf}{%
-\textenglish}%
+\englishfont}%
 }%
-\bgroup%
 }
-{\egroup}
+{}
 \fi
 
 \RequirePackage[Latin,Thai]{ucharclasses}

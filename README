@@ -26,11 +26,12 @@ command:
 For TeXLive on Unix-based distributions, XeLaTeX will look for fonts in system
 installations even if your TeX distribution contains the packages above.
 To install these fonts in your system, install the following packages via apt:
-- fonts-thai-tlwg
+- fonts-thai-tlwg-otf
 - fonts-arundina
 - tex-gyre
+- texlive-fonts-extra
 This can be done via the following command:
-  sudo apt install fonts-thai-tlwg fonts-arundina tex-gyre
+  sudo apt install fonts-thai-tlwg-otf fonts-arundina tex-gyre texlive-fonts-extra
 
 Detailed (albeit still incomplete in places) documentation for
 the document class can be found in the file "cpecmu.pdf".
