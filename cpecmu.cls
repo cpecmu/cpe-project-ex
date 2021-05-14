@@ -373,7 +373,7 @@
 }
 
 \RequirePackage{tabularx}
-\RequirePackage{ulem}
+\RequirePackage[normalem]{ulem}
 \newcommand{\@summaryTH}{%
   \setlength\parindent{0pt}
   \begin{tabularx}{\linewidth}{@{}l@{\quad: }X@{}}
@@ -435,8 +435,9 @@
   \begin{flushright}
     \begin{tabular}{@{}cl@{}}
       \\[1cm]
-      \dotuline{\hspace*{3.5in}} &
-        \ifcpe หัวหน้าภาควิชาวิศวกรรมคอมพิวเตอร์\else Department chair\fi\\
+      \makebox[3.5in]{\dotfill} &
+      % \dotuline{\hspace{3.5in}} &
+        \ifcpe หัวหน้าภาควิชาวิศวกรรมคอมพิวเตอร์\else Department chair\fi \\
       (\ifcpe\@deptChairTH\else\@deptChairEN\fi)
     \end{tabular}
   \end{flushright}
@@ -445,12 +446,14 @@
   \begin{flushright}
     \begin{tabular}{@{}cl@{}}
       \\[1cm]
-      \dotuline{\hspace*{3.5in}} &
+      \makebox[3.5in]{\dotfill} &
+  %     \dotuline{\hspace*{3.5in}} &
         \ifcpe ประธานกรรมการ\else Main advisor / Chair\fi \\
       (\ifcpe\@advisorTH\else\@advisorEN\fi)
       \setcounter{@committeeIdx}{0}%
       \@listcommittee{\ifcpe TH\else EN\fi}{\\[1cm]
-        \dotuline{\hspace*{3.5in}} & \ifcpe กรรมการ\else Commitee member\fi \\
+      \makebox[3.5in]{\dotfill} & \ifcpe กรรมการ\else Committee member\fi \\
+      % \dotuline{\hspace*{3.5in}} & \ifcpe กรรมการ\else Committee member\fi \\
         (}
       {)}%
     \end{tabular}
@@ -653,7 +656,7 @@
           \setcounter{@plan@m}{1}%
       \fi
       \@plan@numcols%
-  \fi
+    \fi
   }
   \def\@plan@genheader{%
     &
@@ -680,6 +683,7 @@
   \setcounter{@plan@y}{\value{@plan@sy}}
   \setcounter{@plan@colscount}{0}
   \@plan@numcols
+  \noindent
   \tabularx{\linewidth}{|X|*{\the@plan@colscount}{c|}}
   \hline
   \bf\ifcpe ขั้นตอนการดำเนินงาน\else Task\fi
