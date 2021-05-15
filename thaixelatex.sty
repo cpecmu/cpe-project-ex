@@ -25,32 +25,20 @@
   ItalicFont=*-Italic,
   BoldFont=*-Bold,
   BoldItalicFont=*-BoldItalic,
-%   FakeBold=1.5,
 ]{Laksaman}
 \newfontfamily\thaifontsf[
   Script=Thai,
   Scale=MatchLowercase,
   Extension=.otf,
-  ItalicFont=*-Italic,
+  ItalicFont=*-Oblique,
   BoldFont=*-Bold,
-  BoldItalicFont=*-BoldItalic,
-%   FakeBold=1.5,
-]{Laksaman}
+  BoldItalicFont=*-BoldOblique,
+]{Garuda}
 \newfontfamily\thaifonttt[
   % Script=Thai,
   Scale=MatchLowercase,
 ]{Arundina Sans Mono}
 \ifenglish
-  \setmainfont[Scale=MatchLowercase]{TeX Gyre Termes}
-  \setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}
-  \setmonofont[
-    Mapping=,
-    Scale=MatchLowercase,
-    Extension=.otf,
-    UprightFont=*zi4-Regular,
-    BoldFont=*zi4-Bold,
-    AutoFakeSlant
-  ]{Inconsolata}
 \else
   \newfontfamily\englishfont[Scale=MatchLowercase]{TeX Gyre Termes}
   \newfontfamily\englishfontsf[Scale=MatchLowercase]{TeX Gyre Heros}
@@ -60,34 +48,39 @@
     Extension=.otf,
     UprightFont=*zi4-Regular,
     BoldFont=*zi4-Bold,
-    AutoFakeSlant
+    AutoFakeSlant,
+    BoldItalicFont={*zi4-Bold},
+    BoldItalicFeatures={FakeSlant=0.2},
   ]{Inconsolata}
 \fi
-
-\def\th@fam{0}
-\let\th@textsf=\textsf
-% \let\th@texttt=\texttt
-% \def\textsf#1{\let\th@fam@old=\th@fam\def\th@fam{1}\th@textsf{#1}\def\th@fam{\th@fam@old}}
-% \def\texttt#1{\let\th@fam@old=\th@fam\def\th@fam{2}\th@texttt{#1}\def\th@fam{\th@fam@old}}
-\def\textsf#1{\def\th@fam{1}\th@textsf{#1}\def\th@fam{0}}
-% \def\texttt#1{\def\th@fam{2}\th@texttt{#1}\def\th@fam{0}}
-% \let\th@texttt=\texttt
-% \def\texttt#1{\def\th@fam{2}\th@texttt{#1}\def\th@fam{0}}
+\setmainfont[Scale=MatchLowercase]{TeX Gyre Termes}
+\setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}
+\setmonofont[
+  Mapping=,
+  Scale=MatchLowercase,
+  Extension=.otf,
+  UprightFont=*zi4-Regular,
+  BoldFont=*zi4-Bold,
+  AutoFakeSlant,
+  BoldItalicFont={*zi4-Bold},
+  BoldItalicFeatures={FakeSlant=0.2},
+]{Inconsolata}
 
 %% math setup
 \RequirePackage{amsmath}
 \RequirePackage{unicode-math}
 \setmathfont{TeX Gyre Termes Math}
-\setmathfontface\mathrm{TeX Gyre Termes}
-\setmathfontface\mathbf{TeX Gyre Termes Bold}
-\setmathfontface\mathit{TeX Gyre Termes Italic}
 
 \RequirePackage{ifthen}
 \ifenglish
 \else
+% \def\th@fam{0}
+% \let\th@textsf=\textsf
+% \def\textsf#1{\def\th@fam{1}\th@textsf{#1}\def\th@fam{0}}
 \newenvironment{englang}{%
 \ifthenelse{\equal{\f@family}{ArundinaSansMono(0)}}{\englishfonttt}{%
-\ifthenelse{\equal{\th@fam}{1}}{\englishfontsf}{%
+\ifthenelse{\equal{\f@family}{Garuda(0)}}{\englishfontsf}{%
+% \ifthenelse{\equal{\th@fam}{1}}{\englishfontsf}{%
 \englishfont}%
 }%
 }
