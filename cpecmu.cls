@@ -28,7 +28,7 @@
 %% $Id$
 \NeedsTeXFormat{LaTeX2e}[2020/02/02]
 \ProvidesClass{cpecmu}
-[2020/08/10 v0.1.1
+[2021/06/30 v0.2.0
   Computer Engineering, Chiang Mai University senior report class]
 \newif\ifcpe
 \DeclareOption{cpe}{\cpetrue}
@@ -372,7 +372,7 @@
   \fi
 }
 
-\RequirePackage{tabularx}
+\RequirePackage{xltabular}
 \RequirePackage[normalem]{ulem}
 \newcommand{\@summaryTH}{%
   \setlength\parindent{0pt}
@@ -436,8 +436,7 @@
     \begin{tabular}{@{}cl@{}}
       \\[1cm]
       \makebox[3.5in]{\dotfill} &
-      % \dotuline{\hspace{3.5in}} &
-        \ifcpe หัวหน้าภาควิชาวิศวกรรมคอมพิวเตอร์\else Department chair\fi \\
+        \ifcpe หัวหน้าภาควิชาวิศวกรรมคอมพิวเตอร์\else Department chair\fi\\
       (\ifcpe\@deptChairTH\else\@deptChairEN\fi)
     \end{tabular}
   \end{flushright}
@@ -447,13 +446,11 @@
     \begin{tabular}{@{}cl@{}}
       \\[1cm]
       \makebox[3.5in]{\dotfill} &
-  %     \dotuline{\hspace*{3.5in}} &
         \ifcpe ประธานกรรมการ\else Main advisor / Chair\fi \\
       (\ifcpe\@advisorTH\else\@advisorEN\fi)
       \setcounter{@committeeIdx}{0}%
       \@listcommittee{\ifcpe TH\else EN\fi}{\\[1cm]
-      \makebox[3.5in]{\dotfill} & \ifcpe กรรมการ\else Committee member\fi \\
-      % \dotuline{\hspace*{3.5in}} & \ifcpe กรรมการ\else Committee member\fi \\
+        \makebox[3.5in]{\dotfill} & \ifcpe กรรมการ\else Committee member\fi \\
         (}
       {)}%
     \end{tabular}
@@ -656,7 +653,7 @@
           \setcounter{@plan@m}{1}%
       \fi
       \@plan@numcols%
-    \fi
+  \fi
   }
   \def\@plan@genheader{%
     &
@@ -684,15 +681,16 @@
   \setcounter{@plan@colscount}{0}
   \@plan@numcols
   \noindent
-  \tabularx{\linewidth}{|X|*{\the@plan@colscount}{c|}}
+  \xltabular{\linewidth}{|X|*{\the@plan@colscount}{c|}}
   \hline
   \bf\ifcpe ขั้นตอนการดำเนินงาน\else Task\fi
   \setcounter{@plan@m}{\value{@plan@sm}}
   \setcounter{@plan@y}{\value{@plan@sy}}
   \@plan@genheader
   \\\hline
+  \endhead
 }{%
-  \endtabularx
+  \endxltabular
 }
 \newcommand\planitem[6][gray]{%
   \gdef\@plan@paint{%
