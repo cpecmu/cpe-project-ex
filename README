@@ -73,7 +73,7 @@ additoinal changes, first clone this template:
 Next, create your own private, empty repository, and retarget the origin remote:
   git remote set-url origin <your-repo-remote-url>
 Finally, add a remote to the template repository:
-  get remote add template https://github.com/cpecmu/cpe-project-ex.git
+  git remote add template https://github.com/cpecmu/cpe-project-ex.git
 Then, to pull template changes, use this command:
   git pull template master
 Note that conflicts may occur at this point; you should check for changes to
