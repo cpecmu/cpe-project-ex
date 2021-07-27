@@ -6,10 +6,13 @@ Text for the first appendix goes here.
 
 Text for a section in the first appendix goes here.
 
+\ifenglish\else
+% TODO: Thai teletype font still doesn't work with english option
 \verb+test ทดสอบฟอนต์ teletype ภาษาไทย+
 
 \texttt{test ทดสอบฟอนต์ teletype ภาษาไทย}
+\fi
 
-\chapter{\ifcpe คู่มือการใช้งานระบบ\else Manual\fi}
+\chapter{\ifenglish Manual\else คู่มือการใช้งานระบบ\fi}
 
 Manual goes here.
