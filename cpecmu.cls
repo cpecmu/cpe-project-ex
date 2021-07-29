@@ -28,19 +28,18 @@
 %% $Id$
 \NeedsTeXFormat{LaTeX2e}[2020/02/02]
 \ProvidesClass{cpecmu}
-[2021/06/30 v0.2.0
-  Computer Engineering, Chiang Mai University senior report class]
+[2021/07/27 v0.2.1
+  Computer Engineering, Chiang Mai University senior project report class]
+\newif\ifenglish\englishfalse
+\DeclareOption{english}{\englishtrue}
 \newif\ifcpe
 \DeclareOption{cpe}{\cpetrue}
-\DeclareOption{isne}{\cpefalse}
+\DeclareOption{isne}{\cpefalse\englishtrue}
 \ExecuteOptions{cpe}
 \newif\ifproject
 \DeclareOption{project}{\projecttrue}
 \DeclareOption{survey}{\projectfalse}
 \ExecuteOptions{project}
-\newif\ifenglish\englishfalse
-\DeclareOption{english}{\englishtrue}
-\ifcpe\relax\else\englishtrue\fi
 \DeclareOption{10pt}{%
  \iffinal%
   \OptionNotUsed%
