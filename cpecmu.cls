@@ -685,7 +685,7 @@
   \noindent
   \xltabular{\linewidth}{|X|*{\the@plan@colscount}{c|}}
   \hline
-  \bf\ifenglish Task\else ขั้นตอนการดำเนินงาน Task\fi
+  \bf\ifenglish Task\else ขั้นตอนการดำเนินงาน\fi
   \setcounter{@plan@m}{\value{@plan@sm}}
   \setcounter{@plan@y}{\value{@plan@sy}}
   \@plan@genheader
