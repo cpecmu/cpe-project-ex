@@ -21,7 +21,7 @@ LaTeX distribution:
 - tex-gyre-math
 For MikTeX on Windows, these packages can be installed via the following
 command:
-  mpm --install=latexmk,fonts-tlwg,fonts-arundina,tex-gyre,tex-gyre-math
+  mpm --require=latexmk,fonts-tlwg,fonts-arundina,tex-gyre,tex-gyre-math
 
 For TeXLive on Unix-based distributions, XeLaTeX will look for fonts in system
 installations even if your TeX distribution contains the packages above.
