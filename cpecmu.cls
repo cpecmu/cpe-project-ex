@@ -28,11 +28,13 @@
 %% $Id$
 \NeedsTeXFormat{LaTeX2e}[2020/02/02]
 \ProvidesClass{cpecmu}
-[2021/06/30 v0.2.0
-  Computer Engineering, Chiang Mai University senior report class]
+[2021/07/27 v0.2.1
+  Computer Engineering, Chiang Mai University senior project report class]
+\newif\ifenglish\englishfalse
+\DeclareOption{english}{\englishtrue}
 \newif\ifcpe
 \DeclareOption{cpe}{\cpetrue}
-\DeclareOption{isne}{\cpefalse}
+\DeclareOption{isne}{\cpefalse\englishtrue}
 \ExecuteOptions{cpe}
 \newif\ifproject
 \DeclareOption{project}{\projecttrue}
@@ -104,7 +106,7 @@
   \end{center}%
   \par\nobreak
 }
-\ifcpe
+\ifenglish\else
   \renewcommand\appendix{\par
     \cleardoublepage
     \thispagestyle{empty}
@@ -230,11 +232,10 @@
     Information Systems and Network Engineering%
   \fi%
 }
-\ifcpe%
-  \RequirePackage{thaixelatex}
-\else%
-  \RequirePackage[english]{thaixelatex}
+\ifenglish%
+  \PassOptionsToPackage{english}{thaixelatex}
 \fi
+\RequirePackage{thaixelatex}
 \newcommand{\@maketitleTH}{%
   \begin{titlepage}%
     \begin{center}%
@@ -414,7 +415,7 @@
 
 \newcommand{\makesignature}{%
   \cleardoublepage
-  \pagenumbering{\ifcpe thaialph\else alph\fi}
+  \pagenumbering{\ifenglish alph\else thaialph\fi}
                       % make sure all the page numbers in the
                       % PDF document are unique, if PDF page
                       % numbers generated
@@ -481,22 +482,7 @@
   \clearpage
 }
 \newcommand\strmnth[1]{%
-  \ifcpe%
-    \ifcase#1%
-    \or ม.ค.% 1
-    \or ก.พ.% 2
-    \or มี.ค.% 3
-    \or เม.ย.% 4
-    \or พ.ค.% 5
-    \or มิ.ย.% 6
-    \or ก.ค.% 7
-    \or ส.ค.% 8
-    \or ก.ย.% 9
-    \or ต.ค.% 10
-    \or พ.ย.% 11
-    \or ธ.ค.% 12
-    \fi
-  \else%
+  \ifenglish%
     \ifcase#1%
     \or Jan% 1
     \or Feb% 2
@@ -511,25 +497,25 @@
     \or Nov% 11
     \or Dec% 12
     \fi
+  \else%
+    \ifcase#1%
+    \or ม.ค.% 1
+    \or ก.พ.% 2
+    \or มี.ค.% 3
+    \or เม.ย.% 4
+    \or พ.ค.% 5
+    \or มิ.ย.% 6
+    \or ก.ค.% 7
+    \or ส.ค.% 8
+    \or ก.ย.% 9
+    \or ต.ค.% 10
+    \or พ.ย.% 11
+    \or ธ.ค.% 12
+    \fi
   \fi
 }
 \newcommand\strmonth[1]{%
-  \ifcpe%
-    \ifcase#1%
-    \or มกราคม% 1
-    \or กุมภาพันธ์% 2
-    \or มีนาคม% 3
-    \or เมษายน% 4
-    \or พฤษภาคม% 5
-    \or มิถุนายน% 6
-    \or กรกฎาคม% 7
-    \or สิงหาคม% 8
-    \or กันยายน% 9
-    \or ตุลาคม% 10
-    \or พฤศจิกายน% 11
-    \or ธันวาคม% 12
-    \fi
-  \else%
+  \ifenglish%
     \ifcase#1%
     \or January% 1
     \or February% 2
@@ -544,11 +530,26 @@
     \or November% 11
     \or December% 12
     \fi
+  \else%
+    \ifcase#1%
+    \or มกราคม% 1
+    \or กุมภาพันธ์% 2
+    \or มีนาคม% 3
+    \or เมษายน% 4
+    \or พฤษภาคม% 5
+    \or มิถุนายน% 6
+    \or กรกฎาคม% 7
+    \or สิงหาคม% 8
+    \or กันยายน% 9
+    \or ตุลาคม% 10
+    \or พฤศจิกายน% 11
+    \or ธันวาคม% 12
+    \fi
   \fi
 }
 \newcommand\Day[3]{%
   \setcounter{@plan@y}{#1}%
-  \ifcpe\addtocounter{@plan@y}{543}\fi%
+  \ifenglish\else\addtocounter{@plan@y}{543}\fi%
   #3 \strmonth{#2} \the@plan@y%
 }
 \newcommand\acksign[3]{%
@@ -556,7 +557,7 @@
   \setcounter{@authorIdx}{0}%
   \bigskip\par\noindent%
   \begin{tabularx}{\linewidth}{@{\hspace*{2.5in}}>{\centering}X@{}}
-    \@listauthors{\ifcpe TH\else EN\fi}{\\}{}
+    \@listauthors{\ifenglish EN\else TH\fi}{\\}{}
     \Day{#1}{#2}{#3}
   \end{tabularx}
   \par%
@@ -564,8 +565,8 @@
 }
 \newenvironment{acknowledgments}{%
   \pagestyle{plain}
-  \chapter*{\ifcpe กิตติกรรมประกาศ\else Acknowledgments\fi}
-  \prelim@contents{\ifcpe กิตติกรรมประกาศ\else Acknowledgments\fi}
+  \chapter*{\ifenglish Acknowledgments\else กิตติกรรมประกาศ\fi}
+  \prelim@contents{\ifenglish Acknowledgments\else กิตติกรรมประกาศ\fi}
 }{%
   \clearpage
 }
@@ -602,22 +603,22 @@
 \newcommand{\abbrlist}{%
   \pagestyle{plain}
   \listspacing{abbr}
-  \chapter*{\ifcpe รายการคำย่อ\else List of Abbreviations\fi}
-  \prelim@contents{\ifcpe รายการคำย่อ\else List of Abbreviations\fi}
+  \chapter*{\ifenglish List of Abbreviations\else รายการคำย่อ\fi}
+  \prelim@contents{\ifenglish List of Abbreviations\else รายการคำย่อ\fi}
 }
 
 \newcommand{\symlist}{%
   \pagestyle{plain}
   \listspacing{sym}
-  \chapter*{\ifcpe รายการสัญลักษณ์\else List of Symbols\fi}
-  \prelim@contents{\ifcpe รายการสัญลักษณ์\else List of Symbols\fi}
+  \chapter*{\ifenglish List of Symbols\else รายการสัญลักษณ์\fi}
+  \prelim@contents{\ifenglish List of Symbols\else รายการสัญลักษณ์\fi}
 }
 
 \newcommand{\preface}{%
   \pagestyle{plain}
   \listspacing{pref}
-  \chapter*{\ifcpe คำนำ\else Preface\fi}
-  \prelim@contents{\ifcpe คำนำ\else Preface\fi}
+  \chapter*{\ifenglish Preface\else คำนำ\fi}
+  \prelim@contents{\ifenglish Preface\else คำนำ\fi}
 }
 \RequirePackage{titlesec}
 \titleformat*{\section}{\bfseries}
@@ -658,9 +659,9 @@
   \def\@plan@genheader{%
     &
     \begin{sideways}
-      \ifcpe\addtocounter{@plan@y}{543}\fi
+      \ifenglish\else\addtocounter{@plan@y}{543}\fi
       \strmnth{\value{@plan@m}} \the@plan@y\hspace*{1ex}%
-      \ifcpe\addtocounter{@plan@y}{-543}\fi
+      \ifenglish\else\addtocounter{@plan@y}{-543}\fi
     \end{sideways}
     \ifnum\value{@plan@y}=\value{@plan@ey}%
       \ifnum\value{@plan@m}<\value{@plan@em}%
@@ -683,7 +684,7 @@
   \noindent
   \xltabular{\linewidth}{|X|*{\the@plan@colscount}{c|}}
   \hline
-  \bf\ifcpe ขั้นตอนการดำเนินงาน\else Task\fi
+  \bf\ifenglish Task\else ขั้นตอนการดำเนินงาน\fi
   \setcounter{@plan@m}{\value{@plan@sm}}
   \setcounter{@plan@y}{\value{@plan@sy}}
   \@plan@genheader
@@ -744,7 +745,7 @@
       \fi
       \@plan@paint%
     \fi
-  }
+  }%
   #6%
   \setcounter{@plan@m}{\value{@plan@sm}}
   \setcounter{@plan@y}{\value{@plan@sy}}
@@ -764,8 +765,8 @@
 }
 \newenvironment{biosketch}{%
   \typeout{Vita}
-  \chapter*{\ifcpe ประวัติผู้เขียน\else Biographical Sketch\fi}
-  \prelim@contents[chapter]{\ifcpe ประวัติผู้เขียน\else Biographical Sketch\fi}
+  \chapter*{\ifenglish Biographical Sketch\else ประวัติผู้เขียน\fi}
+  \prelim@contents[chapter]{\ifenglish Biographical Sketch\else ประวัติผู้เขียน\fi}
 }{%
   \clearpage
 }

@@ -10,10 +10,13 @@ test ทดสอบฟอนต์ serif
 
 \textsf{test ทดสอบฟอนต์ sans serif}
 
-\texttt{test ทดสอบฟอนต์ teletype ภาษาไทย}
-
+\ifenglish\else
+% TODO: Thai teletype font still doesn't work with english option
 \verb+test ทดสอบฟอนต์ teletype ภาษาไทย+
 
-\chapter{\ifcpe คู่มือการใช้งานระบบ\else Manual\fi}
+\texttt{test ทดสอบฟอนต์ teletype ภาษาไทย}
+\fi
+
+\chapter{\ifenglish Manual\else คู่มือการใช้งานระบบ\fi}
 
 Manual goes here.

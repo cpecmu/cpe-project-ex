@@ -1,4 +1,4 @@
-cpecmu-report 0.1.1
+cpecmu-report 0.2.1
 --------------------
 
 This package provides a LaTeX document class for producing senior project
@@ -21,7 +21,7 @@ LaTeX distribution:
 - tex-gyre-math
 For MikTeX on Windows, these packages can be installed via the following
 command:
-  mpm --install=latexmk,fonts-tlwg,fonts-arundina,tex-gyre,tex-gyre-math
+  mpm --require=latexmk,fonts-tlwg,fonts-arundina,tex-gyre,tex-gyre-math
 
 For TeXLive on Unix-based distributions, XeLaTeX will look for fonts in system
 installations even if your TeX distribution contains the packages above.
@@ -68,13 +68,20 @@ source code and PDF output.  See
 for details.
 
 This template and its related files, including the cpecmu document class,
-may be updated from time to time.  To update your own report repository
-with latest changes, first add the following remote into your repo:
-  git remote add template_remote git@github.com:cpecmu/cpe-project-ex.git
-Then, fetch and merge updates using these commands:
-  git fetch template_remote
-  git merge -s recursive -X ours --no-commit --allow-unrelated-histories \
-    template_remote/master
-Note that this merge strategy will overwrite files that are present in the
-template repository; you should check for changes to your own files
-before committing.
+may be updated from time to time.  To prepare your own report repository for
+additoinal changes, first clone this template:
+  git clone https://github.com/cpecmu/cpe-project-ex.git
+Next, create your own private, empty repository, and retarget the origin remote:
+  git remote set-url origin <your-repo-remote-url>
+Finally, add a remote to the template repository:
+  git remote add template https://github.com/cpecmu/cpe-project-ex.git
+Then, to pull template changes, use this command:
+  git pull template master
+Note that conflicts may occur at this point; you should check for changes to
+your own files and perform a merge appropriately before committing.
+
+To avoid changes in the template from interfering with your own report, make a
+copy of sampleReport.tex and keep sampleReport.tex unchanged.
+  cp sampleReport.tex <your-file-name.tex>
+Then, add the following entry into "settings.json", under "settings" key:
+    "latex-workshop.latex.search.rootFiles.exclude": ["**/sampleReport.tex"]
