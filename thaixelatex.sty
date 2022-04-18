@@ -97,6 +97,7 @@
 
 %% spacing
 \RequirePackage{setspace}
+\let\@xfloat=\latex@xfloat % revert setspace patch of floating environments
 \ifenglish
 \else
 \setstretch{1.35}
