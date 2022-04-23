@@ -60,8 +60,10 @@
 \setmathfontface\mathit{TeX Gyre Termes Italic}
 
 \def\th@fam{0}
+\let\th@thaifont=\thaifont
 \let\th@thaifontsf=\thaifontsf
 \let\th@thaifonttt=\thaifonttt
+\def\thaifont{\def\th@fam{0}\th@thaifont}
 \def\thaifontsf{\def\th@fam{1}\th@thaifontsf}
 \def\thaifonttt{\def\th@fam{2}\th@thaifonttt}
 
