@@ -44,7 +44,7 @@ can be used as a starting point for building your own report.
 
 The sample report can also be built within Visual Studio Code.
 To get started, install the "LaTeX Workshop" extension, then add
-the following entry into "settings.json", under "settings" key:
+the following entry into "settings.json":
     "latex-workshop.latex.tools": [
       {
         "name": "latexmk",
