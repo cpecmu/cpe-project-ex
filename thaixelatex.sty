@@ -37,7 +37,8 @@
 \newfontfamily\thaifonttt[
   % Script=Thai,
   Scale=MatchLowercase,
-]{Arundina Sans Mono}
+]{TlwgTypist}
+% ]{Arundina Sans Mono}  % doesn't work for now
 \setmainfont[Scale=MatchLowercase]{TeX Gyre Termes}
 \setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}
 \setmonofont[
@@ -60,8 +61,10 @@
 \setmathfontface\mathit{TeX Gyre Termes Italic}
 
 \def\th@fam{0}
+\let\th@thaifont=\thaifont
 \let\th@thaifontsf=\thaifontsf
 \let\th@thaifonttt=\thaifonttt
+\def\thaifont{\def\th@fam{0}\th@thaifont}
 \def\thaifontsf{\def\th@fam{1}\th@thaifontsf}
 \def\thaifonttt{\def\th@fam{2}\th@thaifonttt}
 
