@@ -236,39 +236,6 @@
   \PassOptionsToPackage{english}{thaixelatex}
 \fi
 \RequirePackage{thaixelatex}
-\newcommand{\@maketitleTH}{%
-  \begin{titlepage}%
-    \begin{center}%
-      \hrule height 0.5in width 0pt % force vertical space at top
-      \@titlesize\bf
-      เศรษฐกิจจีนสมัยใหม่ \@projectNo/\@acadyearBE
-      \par\vspace*{0.5in}\par
-      เรื่อง
-      \par\vspace*{0.5in}\par
-      \@titleTH
-      \par\vspace*{0.75in}\par
-      โดย
-      \par\vspace*{0.75in}\par
-      {\@authorsize%
-      \begin{tabular}{@{}cl@{}}
-      \@authorsTH{& รหัส~}{\\}%
-      \end{tabular}%
-      }%
-      \vfill
-      \ifproject%
-        ภาคนิพนธ์นี้ \\
-        เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญาวิศวกรรมศาสตรบัณฑิต \\
-      \else%
-        เทคโนโลยีของจีนและการเติบโตทางเศรษฐกิจของจีนเป็นส่วนหนึ่งของวิชาเศรษฐกิจจีนสมัยใหม่ \\
-        ตามหลักสูตรปริญญาวิศวกรรมศาสตรบัณฑิต \\
-      \fi
-      ภาควิชาวิศวกรรมคอมพิวเตอร์ \\
-      คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่ \\
-      ปีการศึกษา~\@acadyearBE
-    \end{center}
-    \vspace{0.25in}
-  \end{titlepage}
-}
 \newcommand{\@maketitleEN}{%
   \begin{titlepage}%
     \begin{center}%
@@ -304,11 +271,8 @@
   \pagenumbering{roman} % title page is counted but not numbered
   \pagestyle{empty}
   \ifcpe%
-    \@maketitleTH
-    \@maketitleEN
   \else
     \@maketitleEN
-    \@maketitleTH
   \fi
 }
 
