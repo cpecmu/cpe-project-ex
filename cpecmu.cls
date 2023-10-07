@@ -241,7 +241,7 @@
     \begin{center}%
       \hrule height 0.5in width 0pt % force vertical space at top
       \@titlesize\bf
-      โครงงานเลขที่ \@degreefieldAbbrTH~\@projectNo/\@acadyearBE
+      เศรษฐกิจจีนสมัยใหม่ \@projectNo/\@acadyearBE
       \par\vspace*{0.5in}\par
       เรื่อง
       \par\vspace*{0.5in}\par
@@ -256,10 +256,10 @@
       }%
       \vfill
       \ifproject%
-        โครงงานนี้ \\
+        ภาคนิพนธ์นี้ \\
         เป็นส่วนหนึ่งของการศึกษาตามหลักสูตรปริญญาวิศวกรรมศาสตรบัณฑิต \\
       \else%
-        รายงานนี้เป็นส่วนหนึ่งของวิชาสำรวจเพื่อโครงงาน \\
+        เทคโนโลยีของจีนและการเติบโตทางเศรษฐกิจของจีนเป็นส่วนหนึ่งของวิชาเศรษฐกิจจีนสมัยใหม่ \\
         ตามหลักสูตรปริญญาวิศวกรรมศาสตรบัณฑิต \\
       \fi
       ภาควิชาวิศวกรรมคอมพิวเตอร์ \\
@@ -274,7 +274,7 @@
     \begin{center}%
       \hrule height 0.5in width 0pt % force vertical space at top
       \@titlesize\bf
-      PROJECT No. \@degreefieldAbbrEN~\@projectNo/\@acadyearBE
+      Modern Chinese Economy \@projectNo/\@acadyearBE
       \par\vspace*{1in}\par
       \@titleEN
       \par\vspace*{1.5in}\par
@@ -288,7 +288,7 @@
         A Project Submitted in Partial Fulfillment of Requirements \\
         for the Degree of Bachelor of Engineering \\
       \else%
-        A Report Submitted in Partial Fulfillment of Project Survey Course \\
+        A Term Paper Submitted in Partial Fulfillment of Modern Chineses Economy\\
         as Required by the Degree of Bachelor of Engineering \\
       \fi
       Department of Computer Engineering \\
@@ -378,7 +378,7 @@
 \newcommand{\@summaryTH}{%
   \setlength\parindent{0pt}
   \begin{tabularx}{\linewidth}{@{}l@{\quad: }X@{}}
-    หัวข้อโครงงาน & \@titleTH \\
+    หัวข้อภาคนิพนธ์ & \@titleTH \\
     & \@titleEN \\
     โดย &
     \begin{tabular}[t]{@{}ll@{}}
@@ -386,7 +386,7 @@
     \end{tabular}
     \\
     ภาควิชา & วิศวกรรมคอมพิวเตอร์ \\
-    อาจารย์ที่ปรึกษา & \@advisorTH \\
+    อาจารย์ผู้สอน & \@advisorTH \\
     ปริญญา & วิศวกรรมศาสตรบัณฑิต \\
     สาขา & \@degreefieldTH \\
     ปีการศึกษา & \@acadyearBE
@@ -397,14 +397,14 @@
 \newcommand{\@summaryEN}{%
   \setlength\parindent{0pt}
   \begin{tabularx}{\linewidth}{@{}l@{\quad: }X@{}}
-    Project Title & \@titleEN \\
+    Term Paper Title & \@titleEN \\
     Name &
     \begin{tabular}[t]{@{}ll@{}}
       \@authorsEN{& }{\\}
     \end{tabular}
     \\
     Department & Computer Engineering \\
-    Project Advisor & \@advisorEN \\
+    Instructor & \@advisorEN \\
     Degree & Bachelor of Engineering \\
     Program & \@degreefieldEN \\
     Academic Year & \@acadyearAD
@@ -413,51 +413,6 @@
   \hrule height 2pt
 }
 
-\newcommand{\makesignature}{%
-  \cleardoublepage
-  \pagenumbering{\ifenglish alph\else thaialph\fi}
-                      % make sure all the page numbers in the
-                      % PDF document are unique, if PDF page
-                      % numbers generated
-  \pagestyle{plain}
-  \setcounter{page}{1}
-  \bgroup
-  \ifcpe\@summaryTH\else\@summaryEN\fi%
-  \par\vspace*{1cm}\par
-  \ifcpe%
-    ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่
-    ได้อนุมัติให้โครงงานนี้เป็นส่วน\-หนึ่งของการศึกษาตามหลักสูตรปริญญาวิศวกรรมศาสตรบัณฑิต
-    (สาขา\@degreefieldTH)
-  \else%
-    The Department of Computer Engineering, Faculty of Engineering,
-    Chiang Mai University has approved this project to be part of the
-    degree of Bachelor of Engineering (\@degreefieldEN)
-  \fi
-  \begin{flushright}
-    \begin{tabular}{@{}cl@{}}
-      \\[1cm]
-      \makebox[3.5in]{\dotfill} &
-        \ifcpe หัวหน้าภาควิชาวิศวกรรมคอมพิวเตอร์\else Department chair\fi\\
-      (\ifcpe\@deptChairTH\else\@deptChairEN\fi)
-    \end{tabular}
-  \end{flushright}
-  \par\bigskip\par
-  \ifcpe คณะกรรมการสอบโครงงาน\else Project examination committee:\fi
-  \begin{flushright}
-    \begin{tabular}{@{}cl@{}}
-      \\[1cm]
-      \makebox[3.5in]{\dotfill} &
-        \ifcpe ประธานกรรมการ\else Main advisor / Chair\fi \\
-      (\ifcpe\@advisorTH\else\@advisorEN\fi)
-      \setcounter{@committeeIdx}{0}%
-      \@listcommittee{\ifcpe TH\else EN\fi}{\\[1cm]
-        \makebox[3.5in]{\dotfill} & \ifcpe กรรมการ\else Committee member\fi \\
-        (}
-      {)}%
-    \end{tabular}
-  \end{flushright}
-  \egroup
-}
 \newcommand\@abstract@begin[2]{%
   \cleardoublepage
   \typeout{Abstract}
@@ -850,7 +805,7 @@
   \let\CS=\@currsize\renewcommand{\baselinestretch}{2}\CS}
 \newcommand{\normalspacing}{\singlespacingplus}
 \newcommand{\footnotespacing}{\singlespacing}
-\newcommand{\listspacing}[1] % extra arg is extensibility hook
+\newcommand{\listspacing}[1] % extrAarg is extensibility hook
   {\singlespacing}
 \newcommand{\changespacing}[2]{%
   \renewcommand{#1}{%
