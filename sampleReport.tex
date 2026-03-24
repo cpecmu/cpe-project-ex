@@ -1,34 +1,45 @@
-\documentclass[semifinal]{cpecmu}
+\documentclass[survey]{cpecmu}
 
 %% This is a sample document demonstrating how to use the CPECMU
 %% project template. If you are having trouble, see "cpecmu.pdf" for
 %% documentation.
+\usepackage{enumitem}
+\setlist[itemize,2]{label=\textcolor{black}{\large$\circ$}}
 
-\projectNo{P069-1}
-\acadyear{2021}
 
-\titleTH{โครงงานสุดเลิฟของฉัน}
-\titleEN{Your Project Name Goes Here}
+\projectNo{S047-1}
+\acadyear{2025}
 
-\author{นายกินรี ไทร์ล้ำเลิศ}{Kinnaree Tirelumlert}{690610696}
-\author{นายบรรจบ พบเอฟตลอด}{Banjob Pob-eftalord}{690610969}
+\titleTH{ระบบสนับสนุนการตัดสินใจสำหรับการวางแผนระบบขนส่งสาธารณะ}
+\titleEN{DeSS-T : Decision Support System for Public Transit Planning}
 
-\cpeadvisor{chinawat}
-\cpecommittee{paskorn}
-\committee{รศ.ดร.\,นิพนธ์ ธีรอำพน}{Assoc.\,Prof.\,Nipon Theera-Umpon, Ph.D.}
+\author{นางสาวปวีณนุช เพราะสุนทร}{Paweennut Prohsoontorn}{650610783}
+\author{นายอนุวัตร เอี่ยมศรี}{Anuwat Aeamsri}{650610819}
+\author{นางสาวอิศวรา คงศรีเจริญ}{Issawara Kongsricharoen}{650610821}
+
+\cpeadvisor{paskorn}
+\cpecommittee{santi}
+\cpecommittee{navadon}
+
 
 %% Some possible packages to include:
 \usepackage[final]{graphicx} % for including graphics
 
 %% Add bookmarks and hyperlinks in the document.
+% Allow URLs to break across lines; xurl handles many cases better than url
+\usepackage{xurl}
 \PassOptionsToPackage{hyphens}{url}
-\usepackage[colorlinks=true,allcolors=Blue4,citecolor=red,linktoc=all]{hyperref}
-\def\UrlLeft#1\UrlRight{$#1$}
+% enable breaking of links in the PDF viewer and color links
+\usepackage[colorlinks=true,allcolors=Blue4,citecolor=red,linktoc=all,breaklinks=true]{hyperref}
+% make \url and long links use the surrounding (document) font instead of monospace
+\renewcommand{\UrlFont}{\normalfont}
+% remove custom \UrlLeft/\UrlRight redefinition which can prevent proper breaks
+% \def\UrlLeft#1\UrlRight{$#1$}
 
 %% Needed just by this example, but maybe not by most reports
 \usepackage{afterpage} % for outputting
 \usepackage{pdflscape} % for landscape figures and tables. 
-
+\usepackage{float}
 %% Some other useful packages. Look these up to find out how to use
 %% them.
 % \usepackage{natbib}    % for author-year citation styles
@@ -85,7 +96,9 @@
 \bibliography{sampleReport}
 
 \ifproject
-\normalspacing
+\normalspacing% ...เนื้อหาทั้งหมด...
+
+
 \appendix
 \include{chapters/appendix}
 
@@ -103,4 +116,7 @@ Your biosketch goes here. Make sure it sits inside
 the \texttt{biosketch} environment.
 \end{biosketch}
 \fi % \ifproject
+
+\include{chapters/references}
+
 \end{document}

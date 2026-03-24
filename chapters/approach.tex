@@ -5,8 +5,6 @@
 \fi
 }
 
-ในบทนี้จะกล่าวถึงหลักการ และการออกแบบระบบ
-
 \makeatletter
 
 % \renewcommand\section{\@startsection {section}{1}{\z@}%
@@ -19,79 +17,369 @@
 % \titleformat{\section}{\normalfont\bfseries}{\thesection}{1em}{}
 % \titlespacing*{\section}{0pt}{10ex}{0pt}
 
-\section{Alice in Wonderland}
+\section{โครงสร้างโดยรวมของโครงงาน (Project Overview) }
+\begin{mypara}
+    \indent โครงงานนี้เป็นระบบสนับสนุนการตัดสินใจสำหรับการวางแผนระบบขนส่งสาธารณะ 
+    โดยจะจัดทำเป็นเว็บแอพลิเคชั่นสำหรับการจำลอง และมีการสรุปผลลัพธ์ที่ได้จากการจำลองในรูปแบบทางสถิติ
+    ซึ่งในการทำงานของระบบนี้จะมี 4 องค์ประกอบหลักดังนี้  
+\end{mypara}
 
-\begin{figure}
-\begin{center}
-\includegraphics{800px-Briny_Beach.jpg}
-\end{center}
-\caption[Poem]{The Walrus and the Carpenter}
-\label{fig:walrus}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{overview.png}
+    \caption{แผนภาพโดยรวมของโครงงาน}
+    \label{fig:overview}
 \end{figure}
 
-\subsection{The Black Kitten}
-  One thing was certain, that the WHITE kitten had had nothing to
-do with it:---it was the black kitten's fault entirely~\cite{aiw}.  For the
-white kitten had been having its face washed by the old cat for
-the last quarter of an hour (and bearing it pretty well,
-considering); so you see that it COULDN'T have had any hand in
-the mischief.
+\subsection{ข้อมูลสถานการณ์ (Scenario data)}
+\begin{mypara}
+  \indent เป็นข้อมูลที่ผู้ใช้สามารถปรับเปลี่ยนพารามิเตอร์ได้บ่อย ๆ เพื่อจำลองสถานการณ์ต่าง ๆ 
+  สำหรับการเปรียบเทียบและวางแผน ประกอบด้วย เส้นทางการให้บริการของรถในแต่ละสายบริการ 
+  ตารางเวลาการออกรถ ช่วงเวลาที่ต้องการดูผลการจําลอง ข้อมูลของรถซึ่งมี 
+  ความจุผู้โดยสารระยะทางที่สามารถวิ่งได้สูงสุด ความเร็วในการวิ่ง
+\end{mypara}
+\subsection{ข้อมูลการกำหนดค่า (Configuration data)}
+\begin{mypara}
+  \indent เป็นส่วนของข้อมูลที่ใช้เป็นพื้นฐานในการจำลองซึ่งจะไม่ค่อยมีการเปลี่ยนแปลงบ่อย 
+  ได้แก่ ข้อมูลช่วงระยะห่างของเวลาที่ผู้โดยสารแต่ละคนมาถึงที่สถานี ข้อมูลของจำนวนผู้โดยสารที่ลงจากรถในแต่ละสถานี 
+  และข้อมูลที่เกี่ยวข้องกับสถานีซึ่งจะเก็บในรูปแบบของ network model ซึ่งจะมี 
+  node เป็นรายชื่อสถานี และ มี edge เป็นระยะทางละหว่างแต่ละสถานี
+  \end{mypara}
+\subsection{ส่วนการจำลอง (Simulation Component)}
+\begin{mypara}
+  \indent เป็นส่วนที่ทำหน้าที่ในการจำลองระบบขนส่งสาธารณะตามข้อมูลที่ได้รับจากส่วน input 
+  และ configuration data ซึ่งจะใช้เทคนิคการจำลองแบบเหตุการณ์ไม่ต่อเนื่อง (discrete-event simulation) 
+  ในการจำลองระบบขนส่งสาธารณะ 
+\end{mypara}
+\subsection{ผลลัพธ์ (Output)}
+\begin{mypara}
+  \indent เป็นส่วนที่แสดงผลลัพธ์ที่ได้จากการจำลอง โดยจะมีข้อมูล การรอเฉลี่ยของผู้โดยสาร อัตราการใช้งานของรถ 
+  และอัตราการเกิดเหตุการณ์ที่รถบัสมีการใช้งานเกินเวลาหรือระยะทางที่กำหนด
+  ซึ่งจะมีข้อมูลแสดงทั้งข้อมูลรวมทุกสถานี และข้อมูลรายละเอียดของแต่ละสถานีแยกกัน รวมถึงจะมี dashboard 
+  สำหรับแสดงผลลัพธ์ในรูปแบบกราฟเพื่อให้ผู้ใช้สามารถวิเคราะห์ข้อมูลได้ง่ายขึ้น
+\end{mypara}
+\section{ ขั้นตอนการทำงาน}
+\begin{mypara}
+    \indent โครงงานนี้ทำงานโดยนำข้อมูลสถานการณ์จากผู้ใช้ (Scenario data) มาจำลองระบบขนส่งสาธารณะ 
+    โดยอ้างอิงจากข้อมูลการกำหนดค่า (configuration data) ซึ่งประกอบด้วยข้อมูลหลายประเภท 
+    โดยบางส่วนจะถูกนำไปสร้างเป็น ฟังก์ชันการแจกแจง (Distribution Function) เพื่อใช้ในการสุ่มพฤติกรรมของผู้โดยสาร 
+    ขณะที่ข้อมูลอีกส่วนจะถูกนำมาใช้โดยตรง ใน ส่วนการจำลอง ซึ่งจะประมวลผลด้วย
+    เทคนิคการจำลองแบบเหตุการณ์ไม่ต่อเนื่อง (discrete-event simulation) 
+    เพื่อสร้างผลลัพธ์เชิงสถิติที่สะท้อนประสิทธิภาพของระบบขนส่งสาธารณะมาแสดงผลในส่วน output
+\end{mypara}
 
-  The way Dinah washed her children's faces was this:  first she
-held the poor thing down by its ear with one paw, and then with
-the other paw she rubbed its face all over, the wrong way,
-beginning at the nose:  and just now, as I said, she was hard at
-work on the white kitten, which was lying quite still and trying
-to purr---no doubt feeling that it was all meant for its good.
+\section{ส่วนติดต่อผู้ใช้ (User Interface)}
+\begin{mypara}
+    \indent โครงงานนี้มีการออกแบบเพื่อให้ผู้ใช้สามารถป้อนข้อมูลที่จำเป็นสำหรับ
+    การจำลองระบบขนส่งสาธารณะได้อย่างสะดวกและไม่ซับซ้อน 
+    โดยข้อมูลที่มีการเปลี่ยนแปลงบ่อย จะถูกจัดให้อยู่ในส่วนของ input 
+    ซึ่งสามารถเข้าถึงและแก้ไขได้ง่ายโดยไม่ต้องผ่านขั้นตอนที่ซับซ้อน 
+    ส่วนข้อมูลพื้นฐานของระบบขนส่งสาธารณะ จะถูกจัดเก็บแยกเป็น configuration data 
+    เพื่อให้ง่ายต่อการนำมาใช้ซ้ำ และมี workspace สำหรับการจัดการข้อมูลที่ช่วยให้ผู้ใช้สามารถ 
+    clone configuration data หรือ input จากผู้อื่นมาใช้งานและปรับแก้ได้สะดวก
 
-  But the black kitten had been finished with earlier in the
-afternoon, and so, while Alice was sitting curled up in a corner
-of the great arm-chair, half talking to herself and half asleep,
-the kitten had been having a grand game of romps with the ball of
-worsted Alice had been trying to wind up, and had been rolling it
-up and down till it had all come undone again; and there it was,
-spread over the hearth-rug, all knots and tangles, with the
-kitten running after its own tail in the middle.
+  \indent ในส่วนของ output ได้ออกแบบให้สามารถแสดงผลได้ทั้งมุมมองภาพรวมและ
+  รายละเอียดรายสถานี เพื่อให้ผู้ใช้ตรวจสอบข้อมูลเชิงลึกได้อย่างครบถ้วน นอกจากนี้ยังมี 
+  dashboard สรุปผล ที่นำเสนอข้อมูลในรูปแบบกราฟและตัวชี้วัดสำคัญ 
+  เพื่อช่วยให้ผู้ใช้สามารถเปรียบเทียบและวิเคราะห์ประสิทธิภาพของระบบขนส่งสาธารณะ
+  ได้อย่างสะดวกและมีประสิทธิภาพ
+\end{mypara}
 
-\subsection{The Reproach}
+\subsection{การจัดกลุ่มผู้ใช้ (User Grouping)}
+\begin{mypara}
+\indent โครงงานนี้มีการจัดกลุ่มผู้ใช้เป็น 2 กลุ่มหลัก ได้แก่
+\begin{itemize}
+    \item ผู้ใช้ที่ลงทะเบียน (Registered Users): กลุ่มของผู้ใช้ที่สร้างบัญชีและเข้าสู่ระบบแล้ว 
+    สามารถเข้าถึงฟังก์ชันทั้งหมดของระบบ สามารถบันทึกการจำลองหรืออัพโหลดข้อมูลขึ้นไปบน Communityได้ 
+    \item ผู้ใช้ที่ไม่ได้ลงทะเบียน (Guest Users): กลุ่มของผู้ใช้ทั่วไปที่ไม่ได้สร้างบัญชี 
+    สามารถใช้ระบบจำลองได้แบบจำกัดฟังก์ชัน โดยทำการจำลองและดูผลลัพธ์ได้ชั่วคราว 
+\end{itemize}
+\end{mypara}
+\section{ผังการทำงานของผู้ใช้ (User Flow)}
+\begin{mypara}
+    \indent โครงงานนี้มีการออกแบบผังการทำงานของผู้ใช้ สำหรับผู้ใช้ทั้ง 2 กลุ่ม เพื่อให้ผู้ใช้สามารถเข้าถึงฟังก์ชันต่าง ๆ ของระบบได้อย่างเหมาะสม 
+    โดยมีการออกแบบดังนี้
+\end{mypara}
+  \subsection{ผู้ใช้ที่ไม่ได้ลงทะเบียน (Guest Users)}
+  \begin{mypara}
+    \indent ผังการทำงานของผู้ใช้ที่ไม่ได้ลงทะเบียน จะถูกจำกัดการเข้าถึงฟังก์ชันบางส่วนของระบบโดยมี
+    การทำงานคือเมื่อผู้ใช้เข้ามาสู่หน้าแรก (Landing page) ซึ่งผู้ที่ไม่ได้ลงทะเบียนจะเข้าใช้
+    ในโหมด Guest user โดยสามารถเลือกได้ว่าจะใช้ข้อมูลที่มีอยู่ใน Community 
+    ซึ่งสามารถเลือกได้ระหว่างว่าจะนำข้อมูลกำหนดค่า (Configuration data) อย่างเดียว กับ เลือกใช้ร่วมกับ
+    ข้อมูลสถานการณ์ (Scenario data) หรือเลือกที่จะ Setup ข้อมูลทั้งหมดเอง เมื่อเลือกข้อมูลที่จะใช้ได้แล้ว
+    จะสามารถ เข้าสู่หน้าสำหรับการใส่ ข้อมูลสถานการณ์ (Scenario data) เพื่อกรอกข้อมูลสถานการณ์และปรับแต่งข้อมูลได้ เมื่อกรอกข้อมูลเสร็จ
+    แล้วจะสามารถกดปุ่มดำเนินการเพื่อเริ่มการใช้แบบจําลอง (Simulation) หลังจากการจำลองเสร็จสิ้น
+    ผู้ใช้จะสามารถเลือกดูผลลัพธ์ได้โดยเลือกดูได้ทั้งแบบ Dashboard สรุปผลข้อมูล หรือ Interacting Visualize
+    ซึ่งจะเป็นข้อมูลทางสถิติที่เป็นผลลัพธ์ภาพรวมหรือข้อมูลรายละเอียดรายสถานี ดังภาพ \ref{fig:UserFlowUnregistered}
+  \end{mypara}
 
-  `Oh, you wicked little thing!' cried Alice, catching up the
-kitten, and giving it a little kiss to make it understand that it
-was in disgrace.  `Really, Dinah ought to have taught you better
-manners!  You OUGHT, Dinah, you know you ought!' she added,
-looking reproachfully at the old cat, and speaking in as cross a
-voice as she could manage---and then she scrambled back into the
-arm-chair, taking the kitten and the worsted with her, and began
-winding up the ball again.  But she didn't get on very fast, as
-she was talking all the time, sometimes to the kitten, and
-sometimes to herself.  Kitty sat very demurely on her knee,
-pretending to watch the progress of the winding, and now and then
-putting out one paw and gently touching the ball, as if it would
-be glad to help, if it might.
+  \subsection{ผู้ใช้ที่ลงทะเบียน (Registered Users)}
+  
+  \begin{mypara}
+    \indent ผังการทำงานของผู้ใช้ที่ลงทะเบียน จะสามารถเข้าถึงฟังก์ชันทั้งหมดของระบบ โดยมี
+    การทำงานคือ เมื่อผู้ใช้เข้ามาสู่หน้าแรก (Landing page) โดยผู้ใช้จะใช้โหมดลงทะเบียน สำหรับผู้ใช้ที่ลงทะเบียน
+    แล้วจะสามารถเข้าสู่ระบบ (Login) ได้แต่หากไม่ได้ลงทะเบียน จะต้องทำการสมัครสมาชิก (Sign up) ก่อนโดย
+    ในโหมด Login user โดยหลังจากเข้าสู่ระบบผู้ใช้จะเข้าสู่หน้า Work space ซึ่งเป็นการจัดการงานทั้งหมดของผู้ใช้
+    โดยการการเริ่่มงานใหม่จะสามารถทำได้ 2 วิธี โดยวิธีที่ 1 คือการนำเข้าข้อมูลจาก Community ซึ่งสามารถเลือก
+    ได้ระหว่างว่าจะนำข้อมูลกำหนดค่า (Configuration data) อย่างเดียวหรือเลือกใช้ร่วมกับ
+    ข้อมูลสถานการณ์ (Scenario data) วิธีที่ 2 คือการสร้างงานใหม่ (New work) 
+    โดยการสร้างงานจะต้องอ้างอิงกับ ข้อมูลการกำหนดค่า (Configuration data) ที่มีอยู่ หากต้องการ
+    ข้อมูลกำหนดค่าใหม่สามารถสร้าง setup ใหม่เองได้ซึ่งข้อมูลกำหนดค่าที่สร้างขึ้นสามารถบันทึกไว้ใช้
+    ในงานต่อไปได้และเลือกอัพโหลดข้อมูลขึ้นไปใน Community เพื่อให้ผู้อื่นสามารถนำไปใช้ได้
+    เมื่อสร้างงานใหม่หรือเลือกงานที่มีอยู่แล้วได้ซึ่งงานจะสามารถบันทึกไว้ใช้และเลือกอัพโหลดข้อมูลขึ้นไปใน Community เพื่อให้ผู้อื่นสามารถนำไปใช้ได้
+    แล้วหลังจากกำหนดงานที่ต้องการได้แล้วจะสามารถเข้าสู่หน้าสำหรับการใส่ 
+    ข้อมูลสถานการณ์ (Scenario data) 
+    เพื่อกรอกข้อมูลสถานการณ์และปรับแต่งข้อมูลได้ เมื่อกรอกข้อมูลเสร็จ
+    แล้วจะสามารถกดปุ่มดำเนินการเพื่อเริ่มการใช้แบบจําลอง (Simulation) หลังจากการจำลองเสร็จสิ้น
+    ผู้ใช้จะสามารถเลือกดูผลลัพธ์ได้โดยเลือกดูได้ทั้งแบบ Dashboard สรุปผลข้อมูล หรือ Interacting Visualize
+    ซึ่งจะเป็นข้อมูลทางสถิติที่เป็นผลลัพธ์ภาพรวมหรือข้อมูลรายละเอียดรายสถานี 
+    ดังภาพ \ref{fig:UserFlowRegistered} 
+  \end{mypara}
 
-  `Do you know what to-morrow is, Kitty?' Alice began.  `You'd
-have guessed if you'd been up in the window with me---only Dinah
-was making you tidy, so you couldn't.  I was watching the boys
-getting in stick for the bonfire---and it wants plenty of
-sticks, Kitty!  Only it got so cold, and it snowed so, they had
-to leave off.  Never mind, Kitty, we'll go and see the bonfire
-to-morrow.'  Here Alice wound two or three turns of the worsted
-round the kitten's neck, just to see how it would look:  this led
-to a scramble, in which the ball rolled down upon the floor, and
-yards and yards of it got unwound again.
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth,height=0.95\textheight,keepaspectratio]{User_flow_-_guest.png}
+    \caption{User flow  ของผู้ใช้ที่ไม่ได้ลงทะเบียน}
+    \label{fig:UserFlowUnregistered}
+  \end{figure}
 
-  `Do you know, I was so angry, Kitty,' Alice went on as soon as
-they were comfortably settled again, `when I saw all the mischief
-you had been doing, I was very nearly opening the window, and
-putting you out into the snow!  And you'd have deserved it, you
-little mischievous darling!  What have you got to say for
-yourself?  Now don't interrupt me!' she went on, holding up one
-finger.  `I'm going to tell you all your faults.  Number one:
-you squeaked twice while Dinah was washing your face this
-morning.  Now you can't deny it, Kitty:  I heard you!  What that
-you say?' (pretending that the kitten was speaking.)  `Her paw
-went into your eye?  Well, that's YOUR fault, for keeping your
-eyes open---if you'd shut them tight up, it wouldn't have
-happened.  Now don't make any more excuses, but listen!  Number
-two:  you pulled Snowdrop away by the tail just as I had put down
-the saucer of milk before her!  What, you were thirsty, were you?
+    \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth,height=0.95\textheight,keepaspectratio]{User_flow_-_login.png}
+      \caption{User flow ของผู้ใช้ที่ลงทะเบียน}
+      \label{fig:UserFlowRegistered}
+    \end{figure}
+      
+\newpage
+\section{โครงร่างหน้าจอ (Wireframe)}
+\begin{mypara}
+    \indent โครงงานนี้มีการออกแบบ โครงร่างหน้าจอ สำหรับหน้าต่างๆ ของระบบ 
+    เพื่อใช้เป็นแนวทางในการพัฒนาและทดสอบระบบ โดยมีการออกแบบดังนี้
+
+\subsection{โครงร่างหน้าจอผู้ใช้ที่ไม่ได้ลงทะเบียน (Guest Users / Unregistered Users)}
+\begin{itemize}
+    \item Step 1: ผู้ใช้จะเข้าสู่หน้า Landing page เพื่อเลือกระหว่างจะเข้าใช้ในโหมด Guest user หรือ Login user
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.35]
+        {homepage.png}
+        \caption{Wireframe ของหน้า Landing page}
+        \label{fig:WireframeHomepage}
+      \end{figure}
+
+    \item Step 2: Guest user สามารถเลือกว่าจะใช้ข้อมูลที่มีอยู่ใน Community หรือเลือกที่จะ Setup ข้อมูลทั้งหมดเอง
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.35]
+        {guest_login.png}
+        \caption{Wireframe ของหน้า Guest Decision}
+        \label{fig:WireframeGuestDecision}
+      \end{figure}
+
+    \item Step 3: การใช้ข้อมูล Configuration data
+    \begin{itemize}
+        \item กรณีที่เลือกใช้จากข้อมูลที่มีอยู่ใน Community
+          \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{conf_commu_guest.png}
+            \caption{Wireframe ของหน้า Community Configuration data}
+            \label{fig:WireframeCommunityConfigGuest}
+          \end{figure}
+
+          \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{conf_commu_detail_guest.png}
+            \caption{Wireframe ของหน้ารายละเอียด Configuration data ใน Community}
+            \label{fig:WireframeCommunityConfigDetailGuest}
+          \end{figure}
+
+        \newpage
+        \item กรณีที่ผู้ใช้เลือก Setup ข้อมูลทั้งหมดเอง จะเข้าสู่การ Setup Configuration ด้วยตนเอง
+          \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{conf_setup_guest.png}
+            \caption{Wireframe ของหน้า Setup Configuration data สำหรับ Guest}
+            \label{fig:WireframeSetupConfigGuest}
+          \end{figure}
+    \end{itemize}
+
+    \item Step 4: หลังจาก Setup Configuration data ทั้งหมดเรียบร้อยจะเข้าสู่หน้า Input page เพื่อกรอกข้อมูลสำหรับการจำลองบน Scenario ต่างๆ
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{input_bus.png}
+        \caption{Wireframe ของหน้า Input page (bus) }
+        \label{fig:WireframeInputGuest}
+      \end{figure}
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{input_route.png}
+        \caption{Wireframe ของหน้า Input page (route) }
+        \label{fig:WireframeInputRouteGuest}
+      \end{figure}
+
+    \item Step 5: หลังจากผู้ใช้กดปุ่ม Run simulation แล้ว User จะสามารถเลือกดู  Dashboard สรุปผลข้อมูล 
+    หรือ Interacting Visualize
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{output_show.png}
+        \caption{Wireframe ของหน้าแสดงผลลัพธ์หลังจาก Run Simulation}
+        \label{fig:WireframeOutputGuest}
+      \end{figure} 
+
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{dashboard.png}
+        \caption{Wireframe ของหน้า Dashboard }
+        \label{fig:WireframeDashboardGuest}
+      \end{figure}
+    
+\end{itemize} 
+
+
+\subsection{โครงร่างหน้าจอของผู้ใช้ที่ลงทะเบียน (Registered Users)}
+\begin{itemize}
+    \item Step 1:  ผู้ใช้จะเข้าสู่หน้า Landing page เพื่อเลือกระหว่างจะเข้าใช้ในโหมด Guest user หรือ Login user
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]
+    {homepage.png}
+    \caption{Wireframe ของหน้า Landing page}
+    \label{fig:WireframeHomepageLogin}
+    \end{figure}
+
+    \newpage
+    \item Step 2: หลังจากเข้าสู่ระบบผู้ใช้จะเข้าสู่หน้า My work ซึ่งเป็นการจัดการงานทั้งหมดของผู้ใช้
+    \begin{itemize}
+      \item ในหน้า My work ผู้ใช้สามารถเลือกใช้งานหรือ Publish งาน
+        \begin{figure}[H]
+          \centering
+          \includegraphics[scale=0.4]{my_work.png} 
+          \caption{Wireframe ของหน้า My work}
+          \label{fig:WireframeMyWork}
+        \end{figure}
+
+        \begin{figure}[H]
+          \centering
+          \includegraphics[scale=0.6]{my_work_publish.png} 
+          \caption{Wireframe ของหน้า My work ในกรณีที่ Publish งาน}
+          \label{fig:WireframeMyWorkPublish}
+        \end{figure}
+        
+      \newpage
+      \item  ผู้ใช้สามารถสร้าง Work ใหม่ได้ด้วยการกดที่ปุ่ม New work โดยการสร้าง Work จะต้องอ้างอิงกับ Configuration data ที่มีอยู่
+        \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{new_work.png}
+        \caption{Wireframe ของหน้า New work}
+        \label{fig:WireframeNewWork}
+        \end{figure}
+    \end{itemize}
+
+    \item Step 3: การใช้ข้อมูล Configuration data
+    \begin{itemize}
+        \item กรณีที่เลือกใช้จากข้อมูลที่มีอยู่ใน Community
+          \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{conf_commu.png}
+            \caption{Wireframe ของหน้า Community Configuration data}
+            \label{fig:WireframeCommunityConfigLogin}
+          \end{figure}
+
+          \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{conf_commu_detail_reg.png}
+            \caption{Wireframe ของหน้ารายละเอียด Configuration data ใน Community}
+            \label{fig:WireframeCommunityConfigDetailLogin}
+          \end{figure}
+
+        \item ผู้ใช้สามารถสร้าง Configuration data ใหม่ได้ด้วยการกดที่ปุ่ม New Configuration และสามารถ Save Configuration เพื่อใช้ในงานต่อไปได้
+          \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{new_conf.png}
+            \caption{Wireframe ของหน้า New Configuration data}
+            \label{fig:WireframeNewConfigLogin}
+          \end{figure}
+
+          \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{conf_setup_reg.png}
+            \caption{Wireframe ของหน้า Setup Configuration data สำหรับผู้ใช้ที่ลงทะเบียน}
+            \label{fig:WireframeSetupConfigLogin}
+          \end{figure}
+
+    \end{itemize}
+
+    \item Step 4: หน้า Input page เพื่อกรอกข้อมูลสำหรับการจำลองบน Scenario ต่างๆ
+      \begin{figure}[H]
+        \centering 
+        \includegraphics[scale=0.4]{input_bus.png}
+        \caption{Wireframe ของหน้า Input page (bus) }
+        \label{fig:WireframeInputLogin}
+      \end{figure}
+
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{input_route.png}
+        \caption{Wireframe ของหน้า Input page (route) }
+        \label{fig:WireframeInputRouteLogin}
+      \end{figure}
+
+    \item Step 5: หลังจากผู้ใช้กดปุ่ม Run simulation แล้ว User จะสามารถเลือกดู  Dashboard สรุปผลข้อมูล 
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{output_show.png}
+        \caption{Wireframe ของหน้าแสดงผลลัพธ์หลังจาก Run simulation}
+        \label{fig:WireframeOutputLogin}
+      \end{figure}
+
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{dashboard.png}
+        \caption{Wireframe ของหน้า Dashboard }
+        \label{fig:WireframeDashboardLogin}
+      \end{figure}
+    \end{itemize}
+
+\end{mypara}
+
+\section{รูปแบบไฟล์ข้อมูลนำเข้า (Supported Input File Formats)}
+  \subsection{รูปแบบไฟล์ช่วงเวลาในการมาถึงของผู้โดยสาร (Passenger Arrival Time File Format)}
+  \begin{mypara}
+      \indent รูปแบบไฟล์ช่วงเวลาในการมาถึงของผู้โดยสาร ใช้สำหรับเก็บข้อมูลช่วงเวลาที่ผู้โดยสารแต่ละคนมาถึงที่สถานี
+      โดยข้อมูลจะถูกจัดเก็บในไฟล์ Excel โดยมีสกุลไฟล์ \texttt{.xlsx} 
+      ซึ่งมีโครงสร้างดังแสดงในภาพด้านล่าง
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{Passenger_Interarrival.png}
+        \caption{รูปแบบไฟล์ช่วงเวลาในการมาถึงของผู้โดยสาร}
+        \label{fig:PassengerArrivalFileFormat}
+      \end{figure}
+  \end{mypara}
+
+  \newpage
+  \subsection{รูปแบบไฟล์จำนวนผู้โดยสารที่ลงจากรถ (Passenger Alight File Format)}
+  \begin{mypara}
+      \indent รูปแบบไฟล์จำนวนผู้โดยสารที่ลงจากรถ ใช้สำหรับเก็บข้อมูลจำนวนผู้โดยสารที่ลงจากรถในแต่ละสถานี
+      โดยข้อมูลจะถูกจัดเก็บในไฟล์ Excel โดยมีสกุลไฟล์ \texttt{.xlsx} 
+      ซึ่งมีโครงสร้างดังแสดงในภาพด้านล่าง
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{Passenger_alighting.png}
+        \caption{รูปแบบไฟล์จำนวนผู้โดยสารที่ลงจากรถ}
+        \label{fig:PassengerAlightFileFormat}
+      \end{figure}
+  \end{mypara}
+
+  \subsection{รูปแบบไฟล์ตารางการเดินรถ (Bus Schedule File Format)}
+  \begin{mypara}
+      \indent รูปแบบไฟล์ตารางการเดินรถ ใช้สำหรับเก็บข้อมูลเวลาการออกรถของแต่ละสายบริการ 
+      โดยข้อมูลจะถูกจัดเก็บในไฟล์ Excel โดยมีสกุลไฟล์ \texttt{.xlsx} 
+      ซึ่งมีโครงสร้างดังแสดงในภาพด้านล่าง
+      \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{bus_schedule.png}
+        \caption{รูปแบบไฟล์ตารางการเดินรถ}
+        \label{fig:BusScheduleFileFormat}
+      \end{figure}
+  \end{mypara}
