@@ -18,6 +18,23 @@
 \XeTeXlinebreaklocale 'th_TH'
 \XeTeXlinebreakskip = 0pt plus 0.2pt minus 0.2pt
 
+\defaultfontfeatures[Garuda,TlwgTypist]
+{
+    ItalicFont      = *-Oblique ,
+    BoldFont        = *-Bold ,
+    BoldItalicFont  = *-BoldOblique ,
+    Extension       = .otf ,
+    Mapping       = tex-text,
+    Script          = Thai
+}
+\defaultfontfeatures[Laksaman]{
+    ItalicFont      = *-Italic ,
+    BoldFont        = *-Bold ,
+    BoldItalicFont  = *-BoldItalic ,
+    Extension       = .otf ,
+    Mapping       = tex-text,
+    Script          = Thai
+}
 \newfontfamily\thaifont[
   Script=Thai,
   Scale=MatchLowercase,
@@ -55,10 +72,10 @@
 %% math setup
 \RequirePackage{amsmath}
 \RequirePackage{unicode-math}
-\setmathfont{TeX Gyre Termes Math}
-\setmathfontface\mathrm{TeX Gyre Termes}
-\setmathfontface\mathbf{TeX Gyre Termes Bold}
-\setmathfontface\mathit{TeX Gyre Termes Italic}
+% \setmathfont{TeX Gyre Termes Math}
+% \setmathfontface\mathrm{TeX Gyre Termes}
+% \setmathfontface\mathbf{TeX Gyre Termes Bold}
+% \setmathfontface\mathit{TeX Gyre Termes Italic}
 
 \def\th@fam{0}
 \let\th@thaifont=\thaifont
